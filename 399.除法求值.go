@@ -6,6 +6,7 @@
 package main
 
 // @lc code=start
+// union-find来确定两个变量是否联通
 func calcEquation(equations [][]string, values []float64, queries [][]string) []float64 {
 	params := make(map[string]map[string]float64)
 	// 把所有可能的组合算出来，然后和queries中进行判断
