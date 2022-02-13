@@ -36,7 +36,9 @@ func canPartition(nums []int) bool {
 	for i := 1; i < n; i++ {
 		for j := 0; j <= target; j++ {
 			if dp[i-1][j] {
+				// 上一行继承
 				dp[i][j] = true
+				// 能用j凑起来
 				if j+nums[i] <= target {
 					dp[i][j+nums[i]] = true
 				}
