@@ -15,7 +15,23 @@
  */
 
 func maxPathSum(root *TreeNode) int {
-	// 前缀树
+	maxSum := math.MinInt32
+	var maxGain func(*TreeNode) int
+	maxGain = func(root *TreeNode) int {
+		if root == nil {
+			return 0
+		}
+		l := max(0, maxGain(root.Left))
+		r := max(0, maxGain(root.Right))
+		maxSum = max(maxSum, root.Val+l+r)
+		return root.Val + max(l, r)
+	}
+	maxGain(root)
+	return maxSum
+}
+
+func weirdSol(root *TreeNode) int {
+	// 前缀和
 	var MaxVal = math.MinInt32
 	_ = buildTree(root, &MaxVal)
 	return MaxVal
