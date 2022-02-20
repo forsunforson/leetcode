@@ -7,6 +7,37 @@ package main
 
 // @lc code=start
 func search(nums []int, target int) int {
+	// 其中一半有序，假设是左半，可以通过l与mid的比值知道是否有序
+	l, r := 0, len(nums)-1
+	for l < r {
+		mid := (r-l)/2 + l
+		if nums[mid] == target {
+			return mid
+		}
+		if nums[l] <= nums[mid] {
+			// 左半有序
+			if nums[mid] > target && nums[l] <= target {
+				r = mid - 1
+			} else {
+				l = mid + 1
+			}
+		} else {
+			// 右半有序
+			if nums[mid] < target && nums[r] >= target {
+				l = mid + 1
+			} else {
+				r = mid - 1
+			}
+		}
+	}
+	if nums[l] != target {
+		return -1
+	}
+	return l
+}
+
+// @lc code=end
+func badSol(nums []int, target int) int {
 	if len(nums) == 0 {
 		return -1
 	}
@@ -49,5 +80,3 @@ func search(nums []int, target int) int {
 	}
 	return -1
 }
-
-// @lc code=end
